@@ -1,10 +1,20 @@
-{% extends 'world/base.html' %}
-{% block content %}
+{% extends 'world/base.html' %} {% block content %}
 <div class="container">
-    <div class="row">
-        <div class="col-sm-12">
-            <h1>Around the World</h1>
+  <div class="row">
+    <div class="col-sm-12">
+      <h1>Around the World</h1>
+      <form>
+        <div class="form-group">
+          <label for="exampleFormControlSelect1">Example select</label>
+          <select class="form-control" id="exampleFormControlSelect1">
+            {% for country in countries %}
+            <option>{{ country.properties.name }}</option>
+            {% endfor %}
+          </select>
+          <button type="submit" class="btn btn-primary">Submit</button>
         </div>
+      </form>
     </div>
+  </div>
 </div>
 {% endblock %}
