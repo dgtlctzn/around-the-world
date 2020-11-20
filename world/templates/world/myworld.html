@@ -1,10 +1,24 @@
-{% extends 'world/base.html' %}
-{% block content %}
+{% extends 'world/base.html' %} {% block content %}
 <div class="container">
-    <div class="row">
-        <div class="col-sm-12">
-            <h1>Countries</h1>
-        </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <h1>Countries</h1>
+      <h3>I have been to</h3>
+      <ul>
+        {% for destination in destinations %} {% if destination.been %}
+        <li>{{destination.country_name}}</li>
+        {% endif %} {% endfor%}
+      </ul>
     </div>
+    <div class="col-sm-6">
+      <h1>Countries</h1>
+      <h3>I want to go to</h3>
+      <ul>
+        {% for destination in destinations %} {% if destination.want_to_go %}
+        <li>{{destination.country_name}}</li>
+        {% endif %} {% endfor%}
+      </ul>
+    </div>
+  </div>
 </div>
 {% endblock %}

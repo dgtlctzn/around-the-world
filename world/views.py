@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from .models import Destinations
 import json
 
 # Create your views here.
@@ -11,4 +12,8 @@ def home_view(request):
     return render(request, 'world/home.html', context)
 
 def world_view(request):
-    return render(request, 'world/myworld.html', {})
+    context = {
+        'destinations': Destinations.objects.all()
+    }
+    print(context)
+    return render(request, 'world/myworld.html', context)
