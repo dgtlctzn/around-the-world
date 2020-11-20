@@ -4,7 +4,7 @@ import json
 
 # Create your views here.
 def home_view(request):
-    if request.POST:
+    if request.method == 'POST':
         choice = request.POST
         been = False
         want_to_go = False
