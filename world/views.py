@@ -33,16 +33,29 @@ def world_view(request):
     destinations = pd.read_sql('select * from world_destinations', con=connection)
 
     my_map = folium.Map(location=[35, 0], zoom_start=1.5, zoom_control=False, control_scale=False, no_touch=True, min_zoom=2)
+
+    # creates a map of all countries where want_to_go is true 
+    folium.Choropleth(geo_data='world/json/world_countries.json',
+                 name='My Countries',
+                 data=destinations,
+                 columns=['country_name', 'want_to_go'],
+                 key_on='feature.properties.name',
+                 fill_color='YlGn',
+                 nan_fill_color='white'
+                ).add_to(my_map)
+
+    # creates a map of all countries where been is true 
     folium.Choropleth(geo_data='world/json/world_countries.json',
                  name='My Countries',
                  data=destinations,
                  columns=['country_name', 'been'],
                  key_on='feature.properties.name',
-                 fill_color='BuGn',
+                 fill_color='YlGn',
                  nan_fill_color='white'
                 ).add_to(my_map)
+
     my_map.save('world/templates/world/my_map.html')
-    
+
     context = {
         'destinations': destinations
     }
