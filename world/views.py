@@ -6,6 +6,14 @@ import pandas as pd
 import sqlite3 as sql
 
 # Create your views here.
+def sign_in(request):
+    return render(request, 'world/sign_in.html', {})
+
+
+def sign_in(request):
+    return render(request, 'world/sign_up.html', {})
+
+
 def home_view(request):
     if request.method == 'POST':
         choice = request.POST
@@ -27,6 +35,7 @@ def home_view(request):
         'countries': data['features']
     }
     return render(request, 'world/home.html', context)
+
 
 def world_view(request):
     connection = sql.connect('./db.sqlite3')
