@@ -5,6 +5,9 @@ class SignIn(forms.ModelForm):
     username = forms.CharField(widget=forms.TextInput(attrs={
         'placeholder': 'username'
     }))
+    password = forms.CharField(widget=forms.TextInput(attrs={
+        'placeholder': 'password'
+    }))
     class Meta:
         model = User
         fields = [
