@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Destinations, User
 from .forms import SignIn, SignUp
 import json
@@ -20,14 +20,13 @@ def sign_in_view(request):
 
 
 def sign_up_view(request):
-    sign_up = SignUp()
-    if request.method == 'POST':
-        sign_up = SignUp(request.POST)
-        if sign_up.is_valid():
-            User.objects.create(**sign_up.cleaned_data)
-            return redirect('home')
-        else:
-            print(sign_up.errors)
+    sign_up = SignUp(request.POST or None)
+    if sign_up.is_valid():
+        sign_up.save()
+        sign_up = SignUp()
+        return redirect('home')
+    else:
+        print(sign_up.errors)
     context = {
         'sign_up_form': sign_up
     }
@@ -57,10 +56,11 @@ def home_view(request):
     return render(request, 'world/home.html', context)
 
 
-def world_view(request):
+def world_view(request, user_id):
+    user = get_object_or_404(User, id=user_id)
     connection = sql.connect('./db.sqlite3')
-    destinations = pd.read_sql('select * from world_destinations', con=connection)
-
+    destinations = pd.read_sql(f'select * from world_destinations where user_id_id = {user.id}', con=connection)
+    
     my_map = folium.Map(location=[35, 0], zoom_start=1.5, zoom_control=False, control_scale=False, no_touch=True, min_zoom=2)
 
     # creates a map of all countries where want_to_go is true 
