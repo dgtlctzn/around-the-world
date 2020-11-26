@@ -1,0 +1,6 @@
+{% extends 'world/base.html' %} {% block content %}
+    <form method="POST"> {% csrf_token %}
+        {{ sign_in_form.as_p }}
+        <input type="submit"/>
+    </form>
+{% endblock %}

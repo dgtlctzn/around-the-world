@@ -1,0 +1,5 @@
+{% extends 'world/base.html' %} {% block content %}
+    <form> {% csrf_token %}
+        {{ sign_up_form.as_p }}
+    </form>
+{% endblock %}

@@ -1,16 +1,25 @@
 from django.shortcuts import render, redirect
 from .models import Destinations
+from .forms import SignIn, SignUp
 import json
 import folium
 import pandas as pd
 import sqlite3 as sql
 
 # Create your views here.
-def sign_in(request):
-    return render(request, 'world/sign_in.html', {})
+def sign_in_view(request):
+    sign_in = SignIn()
+    if request.method == 'POST':
+        sign_in = SignIn(request.POST)
+        if sign_in.is_valid():
+            print(sign_in.cleaned_data)
+    context = {
+        'sign_in_form': sign_in
+    }
+    return render(request, 'world/sign_in.html', context)
 
 
-def sign_in(request):
+def sign_up_view(request):
     return render(request, 'world/sign_up.html', {})
 
 
