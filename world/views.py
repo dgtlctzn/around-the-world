@@ -8,11 +8,17 @@ import sqlite3 as sql
 
 # Create your views here.
 def sign_in_view(request):
-    sign_in = SignIn()
-    if request.method == 'POST':
-        sign_in = SignIn(request.POST)
-        if sign_in.is_valid():
-            print(sign_in.cleaned_data)
+    # sign_in = SignIn()
+    # if request.method == 'POST':
+    #     sign_in = SignIn(request.POST)
+    #     if sign_in.is_valid():
+    #         print(sign_in.cleaned_data)
+    sign_in = SignUp(request.POST or None)
+    if sign_in.is_valid():
+        login = sign_in.clean()
+        user = User.objects.get(username=login['username'], password=login['password'])
+        print(user)
+        return redirect(f'myworld/{user.id}')
     context = {
         'sign_in_form': sign_in
     }
@@ -25,7 +31,7 @@ def sign_up_view(request):
         sign_up.save()
         new_user = User.objects.get(username=sign_up.clean()['username'])
         sign_up = SignUp()
-        return redirect(f'home/{new_user.id}')
+        return redirect(f'home/{new_user.id}/')
     else:
         print(sign_up.errors)
     context = {
@@ -54,7 +60,8 @@ def home_view(request, user_id):
     with open('world/json/world_countries.json', 'r') as file:
         data = json.load(file)
     context = {
-        'countries': data['features']
+        'countries': data['features'],
+        'user_id': user_id
     }
     return render(request, 'world/home.html', context)
 
@@ -90,6 +97,7 @@ def world_view(request, user_id):
     my_map.save('world/templates/world/my_map.html')
 
     context = {
-        'destinations': destinations
+        'destinations': destinations,
+        'user_id': user_id
     }
     return render(request, 'world/myworld.html', context)
