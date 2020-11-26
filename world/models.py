@@ -9,3 +9,12 @@ class Destinations(models.Model):
 
     def __str__(self):
         return f'{self.country_name} | I have been: {self.been} | I want to go: {self.want_to_go}'
+
+
+class User(models.Model):
+
+    username = models.Charfield(max_length=20, null=False)
+    password = models.CharField(max_length=20, null=False)
+
+    def __str__(self):
+        return f'username: {self.username} | password: {self.password}'
