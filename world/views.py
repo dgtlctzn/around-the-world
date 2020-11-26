@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Destinations
+from .models import Destinations, User
 from .forms import SignIn, SignUp
 import json
 import folium
@@ -20,7 +20,18 @@ def sign_in_view(request):
 
 
 def sign_up_view(request):
-    return render(request, 'world/sign_up.html', {})
+    sign_up = SignUp()
+    if request.method == 'POST':
+        sign_up = SignUp(request.POST)
+        if sign_up.is_valid():
+            User.objects.create(**sign_up.cleaned_data)
+            return redirect('home')
+        else:
+            print(sign_up.errors)
+    context = {
+        'sign_up_form': sign_up
+    }
+    return render(request, 'world/sign_up.html', context)
 
 
 def home_view(request):

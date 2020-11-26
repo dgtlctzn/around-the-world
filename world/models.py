@@ -13,7 +13,7 @@ class Destinations(models.Model):
 
 class User(models.Model):
 
-    username = models.Charfield(max_length=20, null=False)
+    username = models.CharField(max_length=20, null=False)
     password = models.CharField(max_length=20, null=False)
 
     def __str__(self):
