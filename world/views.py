@@ -8,11 +8,6 @@ import sqlite3 as sql
 
 # Create your views here.
 def sign_in_view(request):
-    # sign_in = SignIn()
-    # if request.method == 'POST':
-    #     sign_in = SignIn(request.POST)
-    #     if sign_in.is_valid():
-    #         print(sign_in.cleaned_data)
     sign_in = SignUp(request.POST or None)
     if sign_in.is_valid():
         login = sign_in.clean()
@@ -56,7 +51,7 @@ def home_view(request, user_id):
 
     m = folium.Map(location=[35, 0], zoom_start=1.5, zoom_control=False, control_scale=False, no_touch=True, min_zoom=2)
     m.save('world/templates/world/map.html')
-    # print(request.POST)
+
     with open('world/json/world_countries.json', 'r') as file:
         data = json.load(file)
     context = {
@@ -67,11 +62,9 @@ def home_view(request, user_id):
 
 
 def world_view(request, user_id):
-    # user = get_object_or_404(User, id=user_id)
-    print(user_id)
     connection = sql.connect('./db.sqlite3')
     destinations = pd.read_sql(f'select * from world_destinations where user_id_id = {user_id}', con=connection)
-    
+
     my_map = folium.Map(location=[35, 0], zoom_start=1.5, zoom_control=False, control_scale=False, no_touch=True, min_zoom=2)
 
     # creates a map of all countries where want_to_go is true 
@@ -97,7 +90,8 @@ def world_view(request, user_id):
     my_map.save('world/templates/world/my_map.html')
 
     context = {
-        'destinations': destinations,
+        # orients pandas dataframe into list of dictionaries for each row
+        'destinations': destinations.to_dict(orient='index').values(),
         'user_id': user_id
     }
     return render(request, 'world/myworld.html', context)
