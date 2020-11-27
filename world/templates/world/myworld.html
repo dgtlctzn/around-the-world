@@ -1,6 +1,11 @@
 {% extends 'world/base.html' %} {% block content %}
 <div class="container">
   <div class="row">
+    <div class="col-sm-12">
+      <h1 class="text-center">{{ user.username }}'s world</h1>
+    </div>
+  </div>
+  <div class="row">
     <div class="col-sm-12" style="height: 600px;">{% include 'world/my_map.html' %}</div>
   </div>
   <div class="row">
