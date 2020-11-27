@@ -8,12 +8,6 @@ class SignIn(forms.Form):
     password = forms.CharField(label='', widget=forms.TextInput(attrs={
         'placeholder': 'password'
     }))
-    # class Meta:
-    #     model = User
-    #     fields = [
-    #         'username',
-    #         'password'
-    #     ]
 
 
 class SignUp(forms.ModelForm):
@@ -31,8 +25,8 @@ class SignUp(forms.ModelForm):
             'password'
         ]
 
-    def clean_username(self):
-        username = self.cleaned_data['username']
-        if not 5 < len(username) < 16:
-            raise forms.ValidationError('Please enter a username of at least 6 and no more than 15 characters')
-        return username
+    def clean_password(self):
+        password = self.cleaned_data['password']
+        if not 3 < len(password) < 11:
+            raise forms.ValidationError('Please enter a password of at least 4 and no more than 10 characters')
+        return password
