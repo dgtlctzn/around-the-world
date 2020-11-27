@@ -8,12 +8,13 @@ import sqlite3 as sql
 
 # Create your views here.
 def sign_in_view(request):
-    sign_in = SignUp(request.POST or None)
-    if sign_in.is_valid():
-        login = sign_in.clean()
-        user = User.objects.get(username=login['username'], password=login['password'])
-        print(user)
-        return redirect(f'myworld/{user.id}')
+    sign_in = SignIn()
+    if request.method == 'POST':
+        sign_in = SignIn(request.POST)
+        if sign_in.is_valid():
+            login = sign_in.cleaned_data
+            user = User.objects.get(username=login['username'], password=login['password'])
+            return redirect(f'myworld/{user.id}')
     context = {
         'sign_in_form': sign_in
     }

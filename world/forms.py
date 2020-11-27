@@ -1,19 +1,19 @@
 from django import forms
 from .models import User
 
-class SignIn(forms.ModelForm):
+class SignIn(forms.Form):
     username = forms.CharField(label='', widget=forms.TextInput(attrs={
         'placeholder': 'username'
     }))
     password = forms.CharField(label='', widget=forms.TextInput(attrs={
         'placeholder': 'password'
     }))
-    class Meta:
-        model = User
-        fields = [
-            'username',
-            'password'
-        ]
+    # class Meta:
+    #     model = User
+    #     fields = [
+    #         'username',
+    #         'password'
+    #     ]
 
 
 class SignUp(forms.ModelForm):
