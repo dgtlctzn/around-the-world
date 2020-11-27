@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.core.exceptions import ValidationError
 from .models import Destinations, User
 from .forms import SignIn, SignUp
 import json
@@ -12,9 +13,12 @@ def sign_in_view(request):
     if request.method == 'POST':
         sign_in = SignIn(request.POST)
         if sign_in.is_valid():
-            login = sign_in.cleaned_data
-            user = User.objects.get(username=login['username'], password=login['password'])
-            return redirect(f'myworld/{user.id}')
+            try:
+                login = sign_in.cleaned_data
+                user = User.objects.get(username=login['username'], password=login['password'])
+                return redirect(f'myworld/{user.id}')
+            except User.DoesNotExist as err:
+                sign_in.add_error('username', 'Incorrect username and password combination.')
     context = {
         'sign_in_form': sign_in
     }
