@@ -1,7 +1,10 @@
 {% extends 'world/base.html' %} {% block content %}
 <div class="container">
   <div class="row">
-    <div class="col-sm-6">
+    <div class="col-sm-12" style="height: 600px;">{% include 'world/my_map.html' %}</div>
+  </div>
+  <div class="row">
+    <div id="been" class="col-sm-5">
       <h1>Countries</h1>
       <h3>I have been to</h3>
       <ul>
@@ -10,7 +13,7 @@
         {% endif %} {% endfor%}
       </ul>
     </div>
-    <div class="col-sm-6">
+    <div id="want" class="col-sm-5">
       <h1>Countries</h1>
       <h3>I want to go to</h3>
       <ul>
@@ -19,11 +22,6 @@
         {% endif %} {% endfor%}
       </ul>
     </div>
-  </div>
-  <div class="row">
-      <dic class="col-sm-12" style="height: 600px">
-        {% include 'world/my_map.html' %}
-      </dic>
   </div>
 </div>
 {% endblock %}

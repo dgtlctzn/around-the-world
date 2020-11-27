@@ -2,10 +2,10 @@ from django import forms
 from .models import User
 
 class SignIn(forms.ModelForm):
-    username = forms.CharField(widget=forms.TextInput(attrs={
+    username = forms.CharField(label='', widget=forms.TextInput(attrs={
         'placeholder': 'username'
     }))
-    password = forms.CharField(widget=forms.TextInput(attrs={
+    password = forms.CharField(label='', widget=forms.TextInput(attrs={
         'placeholder': 'password'
     }))
     class Meta:
@@ -17,10 +17,10 @@ class SignIn(forms.ModelForm):
 
 
 class SignUp(forms.ModelForm):
-    username = forms.CharField(widget=forms.TextInput(attrs={
+    username = forms.CharField(label='', widget=forms.TextInput(attrs={
         'placeholder': 'username'
     }))
-    password = forms.CharField(widget=forms.TextInput(attrs={
+    password = forms.CharField(label='', widget=forms.TextInput(attrs={
         'placeholder': 'password'
     }))
 

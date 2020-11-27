@@ -1,3 +1,28 @@
 body {
     font-family: 'Sulphur Point', sans-serif;
 }
+
+.logo {
+    color: rgb(0, 190, 158);
+    font-size: 40px;
+}
+
+#want {
+    border-radius: 10px;
+    border-style: solid;
+    border-color: #c2d8b0;
+    padding: 10px;
+    margin: 10px;
+}
+
+#been {
+    border-radius: 10px;
+    border-style: solid;
+    border-color: #6aa17a;
+    padding: 10px;
+    margin: 10px;
+}
+
+ul {
+    list-style: none;
+}

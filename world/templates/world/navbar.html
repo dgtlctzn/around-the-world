@@ -1,6 +1,7 @@
 {% block content %}
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="/"><i class="fas fa-globe-americas"></i></a>
+  <a class="navbar-brand" href="/"><i class="fas fa-globe-americas logo"></i></a>
+  {% if user_id %}
   <button
     class="navbar-toggler"
     type="button"
@@ -22,7 +23,12 @@
       <li class="nav-item">
         <a class="nav-link" href="/myworld/{{ user_id }}">Your World</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/">Log out</a>
+      </li>
     </ul>
   </div>
+  {% endif %}
+  <h1>Around the World</h1>
 </nav>
 {% endblock %}

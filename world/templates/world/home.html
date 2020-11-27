@@ -2,33 +2,25 @@
 <div class="container" >
   <div class="row">
     <div class="col-sm-3"></div>
-    <div class="col-sm-6">
-      <h1>Around the World</h1>
+    <div class="col-sm-6 main-form text-center">
       <form method="POST"> {% csrf_token %}
         <div class="form-group">
-          <label for="exampleFormControlSelect1">Example select</label>
+          <label for="exampleFormControlSelect1">Select a Country</label>
           <select class="form-control" id="exampleFormControlSelect1" name="country_name" type="submit">
             {% for country in countries %}
             <option>{{ country.properties.name }}</option>
             {% endfor %}
           </select>
           <div class="form-group">
-            <label for="exampleFormControlSelect2">Example multiple select</label>
+            <label for="exampleFormControlSelect2">Status</label>
             <select class="form-control" id="exampleFormControlSelect2" name="status" type="submit">
               <option>Want to go!</option>
               <option>Already been!</option>
             </select>
           </div>
-          <button type="submit" class="btn btn-primary">Submit</button>
+          <button type="submit" class="btn btn-primary">Go  <i class="fas fa-plane"></i></button>
         </div>
       </form>
     </div>
   </div>
-  <div class="row">
-      <div class="col-sm-12" style="height: 600px">
-        {% load static %}
-        <img src="{% static 'world/world_cycle.gif' %}" alt="world gif"/>
-      </div>
-  </div>
-</div>
 {% endblock %}
