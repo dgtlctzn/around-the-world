@@ -1,9 +1,20 @@
 {% extends 'world/base.html' %} {% block content %}
-    <form method="POST"> {% csrf_token %}
-        {{ sign_up_form.as_p }}
-        <input type="submit"/>
-    </form>
-    <a href="/signin">
+<div class="container">
+  <div class="row">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6">
+      <h1>Around the World</h1>
+      <form method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+          {{ sign_up_form.as_p }}
+          <input type="submit" />
+        </div>
+      </form>
+      <a href="/signin">
         <p>Sign In</p>
-    </a>
+      </a>
+    </div>
+  </div>
+</div>
 {% endblock %}

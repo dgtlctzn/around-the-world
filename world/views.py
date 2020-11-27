@@ -92,6 +92,7 @@ def world_view(request, user_id):
     context = {
         # orients pandas dataframe into list of dictionaries for each row
         'destinations': destinations.to_dict(orient='index').values(),
-        'user_id': user_id
+        'user_id': user_id,
+        'no_background': True
     }
     return render(request, 'world/myworld.html', context)
