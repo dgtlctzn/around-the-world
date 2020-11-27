@@ -61,6 +61,14 @@ def home_view(request, user_id):
     return render(request, 'world/home.html', context)
 
 
+# removes the legend on the choropleth map and adds layer to map
+def remove_legend(layer, mymap):
+    for key in layer._children:
+        if key.startswith('color_map'):
+            del(layer._children[key])
+    layer.add_to(mymap)
+
+
 def world_view(request, user_id):
     connection = sql.connect('./db.sqlite3')
     destinations = pd.read_sql(f'select * from world_destinations where user_id_id = {user_id}', con=connection)
@@ -68,24 +76,27 @@ def world_view(request, user_id):
     my_map = folium.Map(location=[35, 0], zoom_start=1.5, zoom_control=False, control_scale=False, no_touch=True, min_zoom=2)
 
     # creates a map of all countries where want_to_go is true 
-    folium.Choropleth(geo_data='world/json/world_countries.json',
+    layer_one = folium.Choropleth(geo_data='world/json/world_countries.json',
                  name='My Countries',
                  data=destinations,
                  columns=['country_name', 'want_to_go'],
                  key_on='feature.properties.name',
                  fill_color='YlGn',
                  nan_fill_color='white'
-                ).add_to(my_map)
+                )
 
     # creates a map of all countries where been is true 
-    folium.Choropleth(geo_data='world/json/world_countries.json',
+    layer_two = folium.Choropleth(geo_data='world/json/world_countries.json',
                  name='My Countries',
                  data=destinations,
                  columns=['country_name', 'been'],
                  key_on='feature.properties.name',
                  fill_color='YlGn',
                  nan_fill_color='white'
-                ).add_to(my_map)
+                )
+
+    remove_legend(layer_one, my_map)
+    remove_legend(layer_two, my_map)
 
     my_map.save('world/templates/world/my_map.html')
 
