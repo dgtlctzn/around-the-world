@@ -27,10 +27,11 @@ environ.Env.read_env()
 SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+# DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'go-around-the-world.herokuapp.com']
-# ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = ['127.0.0.1', 'go-around-the-world.herokuapp.com']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -85,18 +86,18 @@ WSGI_APPLICATION = 'app.wsgi.application'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': BASE_DIR / 'db.sqlite3',
-    # }
-        'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'world_db',
-        'USER': 'dgtlctzn',
-        'PASSWORD': 'katsu',
-        'HOST': 'localhost',
-        'PORT': '',
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
+    #     'default': {
+    #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    #     'NAME': 'world_db',
+    #     'USER': 'dgtlctzn',
+    #     'PASSWORD': 'katsu',
+    #     'HOST': 'localhost',
+    #     'PORT': '',
+    # }
 }
 
 db_from_env = dj_database_url.config(conn_max_age=500)

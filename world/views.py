@@ -5,9 +5,6 @@ from .forms import SignIn, SignUp
 import json
 import folium
 import pandas as pd
-# import sqlite3 as sql
-import psycopg2
-from psycopg2 import Error
 
 # Create your views here.
 def sign_in_view(request):
@@ -77,10 +74,12 @@ def remove_legend(layer, mymap):
 
 
 def world_view(request, user_id):
-    # connection = sql.connect('./db.sqlite3')
-    # destinations = pd.read_sql(f'select * from world_destinations where user_id_id = {user_id}', con=connection)
-    connection = psycopg2.connect(database='world_db', user='dgtlctzn', password='katsu', host='localhost', port='')
-    destinations = pd.read_sql(f'select * from world_destinations where user_id_id = {user_id}', con=connection)
+    my_countries = Destinations.objects.filter(user_id=user_id)
+    # formats django db query for pandas
+    country_dict = {}
+    for n, country in enumerate(my_countries):
+        country_dict[n] = {'name': country.country_name, 'been': country.been, 'want_to_go': country.want_to_go}
+    destinations = pd.DataFrame.from_dict(country_dict, orient='index')
 
     my_map = folium.Map(location=[35, 0], zoom_start=1.5, zoom_control=False, control_scale=False, no_touch=True, min_zoom=2)
 
@@ -88,7 +87,7 @@ def world_view(request, user_id):
     layer_one = folium.Choropleth(geo_data='world/json/world_countries.json',
                  name='My Countries',
                  data=destinations,
-                 columns=['country_name', 'want_to_go'],
+                 columns=['name', 'want_to_go'],
                  key_on='feature.properties.name',
                  fill_color='YlGn',
                  nan_fill_color='white'
@@ -98,7 +97,7 @@ def world_view(request, user_id):
     layer_two = folium.Choropleth(geo_data='world/json/world_countries.json',
                  name='My Countries',
                  data=destinations,
-                 columns=['country_name', 'been'],
+                 columns=['name', 'been'],
                  key_on='feature.properties.name',
                  fill_color='YlGn',
                  nan_fill_color='white'
@@ -110,8 +109,7 @@ def world_view(request, user_id):
     my_map.save('world/templates/world/my_map.html')
 
     context = {
-        # orients pandas dataframe into list of dictionaries for each row
-        'destinations': destinations.to_dict(orient='index').values(),
+        'destinations': my_countries,
         'user_id': user_id,
         'no_background': True,
         'user': User.objects.get(id=user_id)
