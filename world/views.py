@@ -79,12 +79,7 @@ def remove_legend(layer, mymap):
 def world_view(request, user_id):
     # connection = sql.connect('./db.sqlite3')
     # destinations = pd.read_sql(f'select * from world_destinations where user_id_id = {user_id}', con=connection)
-    connection = psycopg2.connect('ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'world_db',
-        'USER': 'dgtlctzn',
-        'PASSWORD': 'katsu',
-        'HOST': 'localhost',
-        'PORT': '')
+    connection = psycopg2.connect(database='world_db', user='dgtlctzn', password='katsu', host='localhost', port='')
     destinations = pd.read_sql(f'select * from world_destinations where user_id_id = {user_id}', con=connection)
 
     my_map = folium.Map(location=[35, 0], zoom_start=1.5, zoom_control=False, control_scale=False, no_touch=True, min_zoom=2)
