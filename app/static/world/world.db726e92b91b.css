@@ -1,0 +1,13 @@
+body {
+    background-image: url("world_cycle.6fa81a688d96.gif");
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.main-form {
+    background-color: rgba(255, 255, 255, .9);
+    margin-top: 100px;
+    border-radius: 10px;
+    padding: 20px;
+}
