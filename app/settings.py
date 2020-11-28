@@ -24,7 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 env = environ.Env()
 environ.Env.read_env()
 
-SECRET_KEY = env('SECRET_KEY')
+# SECRET_KEY = env('SECRET_KEY')
+SECRET_KEY= 'xs(hqc9mg=ino#jyln8e=*x&6dsf*xkh1a_)^x1-&(ivqq4ba$'
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
