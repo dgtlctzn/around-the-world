@@ -5,6 +5,7 @@ from .forms import SignIn, SignUp
 import json
 import folium
 import pandas as pd
+from datetime import datetime
 
 # Create your views here.
 def sign_in_view(request):
@@ -106,12 +107,15 @@ def world_view(request, user_id):
     remove_legend(layer_one, my_map)
     remove_legend(layer_two, my_map)
 
-    my_map.save(f'world/templates/world/my_map.html')
+    dt = datetime.now()
+    my_map.save(f'world/templates/world/my_map{dt}.html')
+    file = f'world/my_map{dt}.html'
 
     context = {
         'destinations': my_countries,
         'user_id': user_id,
         'no_background': True,
-        'user': User.objects.get(id=user_id)
+        'user': User.objects.get(id=user_id),
+        'file': file
     }
     return render(request, 'world/myworld.html', context)
