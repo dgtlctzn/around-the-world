@@ -5,7 +5,9 @@ from .forms import SignIn, SignUp
 import json
 import folium
 import pandas as pd
-import sqlite3 as sql
+# import sqlite3 as sql
+import psycopg2
+from psycopg2 import Error
 
 # Create your views here.
 def sign_in_view(request):
@@ -75,7 +77,14 @@ def remove_legend(layer, mymap):
 
 
 def world_view(request, user_id):
-    connection = sql.connect('./db.sqlite3')
+    # connection = sql.connect('./db.sqlite3')
+    # destinations = pd.read_sql(f'select * from world_destinations where user_id_id = {user_id}', con=connection)
+    connection = psycopg2.connect('ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'world_db',
+        'USER': 'dgtlctzn',
+        'PASSWORD': 'katsu',
+        'HOST': 'localhost',
+        'PORT': '')
     destinations = pd.read_sql(f'select * from world_destinations where user_id_id = {user_id}', con=connection)
 
     my_map = folium.Map(location=[35, 0], zoom_start=1.5, zoom_control=False, control_scale=False, no_touch=True, min_zoom=2)

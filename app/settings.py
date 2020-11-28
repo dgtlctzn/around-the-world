@@ -30,6 +30,7 @@ SECRET_KEY = env('SECRET_KEY')
 DEBUG = False
 
 ALLOWED_HOSTS = ['127.0.0.1', 'go-around-the-world.herokuapp.com']
+# ALLOWED_HOSTS = []
 
 
 # Application definition
