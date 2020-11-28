@@ -106,7 +106,7 @@ def world_view(request, user_id):
     remove_legend(layer_one, my_map)
     remove_legend(layer_two, my_map)
 
-    my_map.save(f'world/templates/world/my_map{user_id}.html')
+    my_map.save(f'world/templates/world/my_map.html')
 
     context = {
         'destinations': my_countries,
