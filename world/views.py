@@ -76,15 +76,8 @@ def remove_legend(layer, mymap):
 
 
 def world_view(request, user_id):
-    # my_countries = Destinations.objects.filter(user_id=user_id)
-    # # formats django db query for pandas
-    # country_dict = {}
-    # for n, country in enumerate(my_countries):
-    #     country_dict[n] = {'name': country.country_name, 'been': country.been, 'want_to_go': country.want_to_go}
-    # destinations = pd.DataFrame.from_dict(country_dict, orient='index')
-
+    # postgres db query to pandas
     destinations = pd.read_sql(f'select * from world_destinations where user_id_id = {user_id}', con=connection)
-    print(destinations)
 
     my_map = folium.Map(location=[35, 0], zoom_start=1.5, zoom_control=False, control_scale=False, no_touch=True, min_zoom=2)
 
@@ -111,12 +104,13 @@ def world_view(request, user_id):
     remove_legend(layer_one, my_map)
     remove_legend(layer_two, my_map)
 
+    # gives html file a unique file name
     dt = datetime.now()
     my_map.save(f'world/templates/world/my_map{dt}.html')
     file = f'world/my_map{dt}.html'
 
     context = {
-        'destinations': destinations,
+        'destinations': destinations.to_dict(orient='index').values(),
         'user_id': user_id,
         'no_background': True,
         'user': User.objects.get(id=user_id),
