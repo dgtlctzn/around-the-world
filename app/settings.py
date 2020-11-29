@@ -27,8 +27,8 @@ environ.Env.read_env()
 SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
-# DEBUG = True
+# DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', 'go-around-the-world.herokuapp.com']
 # ALLOWED_HOSTS = []
@@ -96,7 +96,7 @@ DATABASES = {
         'USER': 'dgtlctzn',
         'PASSWORD': 'katsu',
         'HOST': 'localhost',
-        'PORT': '',
+        'PORT': '5432',
     }
 }
 

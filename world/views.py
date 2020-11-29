@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.exceptions import ValidationError
+from django.db import connection
 from .models import Destinations, User
 from .forms import SignIn, SignUp
 import json
