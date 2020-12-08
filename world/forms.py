@@ -5,7 +5,7 @@ class SignIn(forms.Form):
     username = forms.CharField(label='', widget=forms.TextInput(attrs={
         'placeholder': 'username'
     }))
-    password = forms.CharField(label='', widget=forms.TextInput(attrs={
+    password = forms.CharField(label='', widget=forms.PasswordInput(attrs={
         'placeholder': 'password'
     }))
 
@@ -14,7 +14,7 @@ class SignUp(forms.ModelForm):
     username = forms.CharField(label='', widget=forms.TextInput(attrs={
         'placeholder': 'username'
     }))
-    password = forms.CharField(label='', widget=forms.TextInput(attrs={
+    password = forms.CharField(label='', widget=forms.PasswordInput(attrs={
         'placeholder': 'password'
     }))
 
