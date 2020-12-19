@@ -139,4 +139,4 @@ cython_debug/
 
 .vscode/
 html/
-app/static/admin/
+/app/static/admin/
