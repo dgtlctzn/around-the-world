@@ -1,5 +1,6 @@
 from django import forms
-from .models import User
+# from .models import User
+from django.contrib.auth import authenticate, get_user_model
 
 class SignIn(forms.Form):
     username = forms.CharField(label='', widget=forms.TextInput(attrs={
@@ -8,6 +9,21 @@ class SignIn(forms.Form):
     password = forms.CharField(label='', widget=forms.PasswordInput(attrs={
         'placeholder': 'password'
     }))
+
+    def clean(self):
+        username = self.cleaned_data.get('username')
+        password = self.cleaned_data.get('password')
+
+        if username and password:
+            user = authenticate(username=username, password=password)
+            if not user:
+                raise forms.ValidationError('Username and password do not match')
+            if not user.check_password(password):
+                raise forms.ValidationError('Username and password do not match')
+            return super(SignIn, self).clean()
+
+
+User = get_user_model()
 
 
 class SignUp(forms.ModelForm):
@@ -24,6 +40,7 @@ class SignUp(forms.ModelForm):
             'username',
             'password'
         ]
+
 
     def clean_password(self):
         password = self.cleaned_data['password']

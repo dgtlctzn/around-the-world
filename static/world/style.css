@@ -5,24 +5,41 @@ body {
 .logo {
     color: rgb(0, 190, 158);
     font-size: 40px;
+    margin-bottom: 20px;
+}
+
+.logo:hover {
+    color:rgb(0, 148, 123)
 }
 
 #want {
     border-radius: 10px;
     border-style: solid;
     border-color: #c2d8b0;
-    padding: 10px;
-    margin: 10px;
+    padding: 20px;
+    margin: 15px 0 30px 0;
 }
 
 #been {
     border-radius: 10px;
     border-style: solid;
     border-color: #6aa17a;
-    padding: 10px;
-    margin: 10px;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 15px 0 30px 0;
 }
 
 ul {
     list-style: none;
+    margin-left: 23px;
+    font-size: 18px;
+}
+
+.logout {
+    background: none;
+	color: inherit;
+	border: none;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
 }
